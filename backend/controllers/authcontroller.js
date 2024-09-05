@@ -2,10 +2,8 @@ import { generateTokenAndSetCookie } from "../lib/utils/generateTokenAndSetCooki
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 export const signup = async (req, res) => {
-  console.log("In signup")
   try {
     const { fullName, username, email, password } = req.body;
-    console.log(fullName,username,email,password)
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: "Invalid email format" });
@@ -102,7 +100,7 @@ export const logout = async (req, res) => {
 export const getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
-    return res.status(200).json(user)
+    return res.status(200).json(user);
   } catch (error) {
     console.log(`Error : ${error.message}`);
     return res.status(500).json({ error: "Internal Server Error" });
