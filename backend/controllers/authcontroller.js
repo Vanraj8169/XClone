@@ -2,9 +2,10 @@ import { generateTokenAndSetCookie } from "../lib/utils/generateTokenAndSetCooki
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 export const signup = async (req, res) => {
+  console.log("In signup")
   try {
     const { fullName, username, email, password } = req.body;
-
+    console.log(fullName,username,email,password)
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: "Invalid email format" });
