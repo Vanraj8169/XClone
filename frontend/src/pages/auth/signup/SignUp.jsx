@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import XSvg from "../../../components/svgs/X";
-import { MdOutlineMail, MdPassword, MdDriveFileRenameOutline } from "react-icons/md";
+import {
+  MdOutlineMail,
+  MdPassword,
+  MdDriveFileRenameOutline,
+} from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -29,14 +33,16 @@ const SignUpPage = () => {
       return data;
     },
     onSuccess: () => {
-      toast.success("Account created successfully");
+      toast.success("Account created successfully", {
+        id: "signup-error",
+      });
     },
     onError: (error) => {
       // Use a custom id for the error toast
       toast.error(error.message || "An error occurred", {
         id: "signup-error",
       });
-    }
+    },
   });
 
   const handleSubmit = (e) => {

@@ -20,7 +20,7 @@ const LoginPage = () => {
     isError,
     error,
   } = useMutation({
-    mutationFn: async ({username,password}) => {
+    mutationFn: async ({ username, password }) => {
       try {
         const res = await fetch("/api/auth/login", {
           method: "POST",
@@ -39,7 +39,9 @@ const LoginPage = () => {
       }
     },
     onSuccess: () => {
-      toast.success("Login Successfully");
+      toast.success("Login Successfully", {
+        id: "login-error",
+      });
     },
     onError: (error) => {
       toast.error(error.message || "An error occurred", {
