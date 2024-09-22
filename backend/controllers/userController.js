@@ -8,7 +8,7 @@ export const getUserProfile = async (req, res) => {
   try {
     const user = await User.findOne({ username }).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
-    res.status(200).json({ user });
+    res.status(200).json(user);
   } catch (error) {
     console.log(`Error : ${error.message}`);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -128,17 +128,21 @@ export const updateUser = async (req, res) => {
     }
 
     if (profileImg) {
-        if(user.profileImg){
-            await cloudinary.uploader.destroy(user.profileImg.split("/").pop().split(".")[0]);
-        }
+      if (user.profileImg) {
+        await cloudinary.uploader.destroy(
+          user.profileImg.split("/").pop().split(".")[0]
+        );
+      }
       const uploadedResponse = await cloudinary.uploader.upload(profileImg);
       profileImg = uploadedResponse.secure_url;
     }
 
     if (coverImg) {
-        if(user.coverImg){
-            await cloudinary.uploader.destroy(user.coverImg.split("/").pop().split(".")[0]);
-        }
+      if (user.coverImg) {
+        await cloudinary.uploader.destroy(
+          user.coverImg.split("/").pop().split(".")[0]
+        );
+      }
       const uploadedResponse = await cloudinary.uploader.upload(coverImg);
       profileImg = uploadedResponse.secure_url;
     }
